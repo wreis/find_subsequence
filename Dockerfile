@@ -6,8 +6,9 @@ WORKDIR $BASE_DIR
 
 RUN apt update && apt upgrade -y
 
-COPY requirements.txt $BASE_DIR/requirements.txt
-RUN pip install --upgrade pip && pip install -r requirements.txt
+COPY . $BASE_DIR/
 
-CMD ["pytest"]
+RUN pip install --upgrade pip && pip install setuptools
+RUN pip install -r requirements.txt
 
+RUN pytest -v tests.py
