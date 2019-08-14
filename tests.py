@@ -5,11 +5,15 @@ from click.testing import CliRunner
 from find_subsequence import find_subsequence
 
 def test_valid_input():
+    """Sanity check valid input"""
+
     runner = CliRunner()
     result = runner.invoke(find_subsequence, ['data/input_1.txt', '9', 'values'])
     assert result.exit_code == 0
 
 def test_invalid_input():
+    """Check invalid input, like missing args or file not found"""
+
     runner = CliRunner()
     result = runner.invoke(find_subsequence)
     assert result.exit_code == 2
@@ -17,6 +21,8 @@ def test_invalid_input():
     assert result.exit_code == 2
 
 def test_subseq():
+    """Use cases from task description (plus some more)"""
+
     data_dir = {
         'data/input_1.txt': [
             {
