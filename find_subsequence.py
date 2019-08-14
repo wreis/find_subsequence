@@ -8,6 +8,8 @@ from itertools import islice
 import sys
 
 def _subseq_as_differences(iter):
+    """Helper function to compute sum of absolute differences in a sequence"""
+
     sequence = list(iter)
     return sum(
         abs(sequence[i] - sequence[i+1])
@@ -15,6 +17,8 @@ def _subseq_as_differences(iter):
     )
 
 def _find_diff_highest_sum(sequence, length):
+    """Implements logic for extended task (differences option)"""
+
     seq_length = len(sequence)
     subsequences = list(
         map(
@@ -28,6 +32,8 @@ def _find_diff_highest_sum(sequence, length):
     return max(subsequences)
 
 def _find_highest_sum(sequence, length):
+    """Implements logic for base/original task (values option)"""
+
     highest_sum = []
     for i in range(2, length+1):
         subsequences = list(
@@ -47,6 +53,8 @@ def _find_highest_sum(sequence, length):
 @click.argument('n')
 @click.argument('metric')
 def find_subsequence(input_file, n, metric):
+    """Main function which handles input and dispatching"""
+
     try:
         file_content = list( map(int, input_file.readline().strip().split()) )
     except:
