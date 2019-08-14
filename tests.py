@@ -6,7 +6,7 @@ from find_subsequence import find_subsequence
 
 def test_valid_input():
     runner = CliRunner()
-    result = runner.invoke(find_subsequence, ['data/input_1.txt'])
+    result = runner.invoke(find_subsequence, ['data/input_1.txt', '9', 'values'])
     assert result.exit_code == 0
 
 def test_invalid_input():
@@ -17,13 +17,59 @@ def test_invalid_input():
     assert result.exit_code == 2
 
 def test_subseq():
-    runner = CliRunner()
     data_dir = {
-        'data/input_1.txt': "6\n",
-        'data/input_2.txt': "27\n",
-        'data/input_3.txt': "82\n",
+        'data/input_1.txt': [
+            {
+                'n': '9',
+                'metric': 'values',
+                'out': "6\n",
+            },
+            {
+                'n': '4',
+                'metric': 'differences',
+                'out': "16\n",
+            },
+        ],
+        'data/input_2.txt': [
+            {
+                'n': '20',
+                'metric': 'values',
+                'out': "27\n",
+            },
+            {
+                'n': '10',
+                'metric': 'values',
+                'out': "27\n",
+            },
+            {
+                'n': '5',
+                'metric': 'differences',
+                'out': "58\n",
+            },
+        ],
+        'data/input_3.txt': [
+            {
+                'n': '100',
+                'metric': 'values',
+                'out': "82\n",
+            },
+            {
+                'n': '30',
+                'metric': 'values',
+                'out': "44\n",
+            },
+            {
+                'n': '10',
+                'metric': 'differences',
+                'out': "40\n",
+            },
+        ],
     }
     for filename in data_dir.keys():
-        result = runner.invoke(find_subsequence, [filename])
-        assert result.output == data_dir[filename]
-        assert result.exit_code == 0
+        for case in data_dir[filename]:
+            runner = CliRunner()
+            result = runner.invoke(
+                find_subsequence, [filename, case['n'], case['metric']]
+            )
+            assert result.output == case['out']
+            assert result.exit_code == 0
