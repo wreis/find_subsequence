@@ -17,9 +17,30 @@ def test_invalid_input():
     runner = CliRunner()
     result = runner.invoke(find_subsequence)
     assert result.exit_code == 2
+
+    runner = CliRunner()
     result = runner.invoke(find_subsequence, ['data/input_1'])
     assert result.exit_code == 2
 
+    runner = CliRunner()
+    result = runner.invoke(find_subsequence, ['data/input_1.txt', 'foo', 'bar'])
+    assert result.exit_code == 2
+
+    runner = CliRunner()
+    result = runner.invoke(find_subsequence, ['data/input_1.txt', '0', 'bar'])
+    assert result.output == "Please input a positive int as second argument\n"
+    assert result.exit_code == 2
+
+    runner = CliRunner()
+    result = runner.invoke(find_subsequence, ['data/input_1.txt', '9', 'bar'])
+    assert result.output == "Please input either 'values' or 'differences' as third argument\n"
+    assert result.exit_code == 2
+
+    runner = CliRunner()
+    result = runner.invoke(find_subsequence, ['data/input_4.txt', '2', 'values'])
+    assert result.output == "Invalid file content\n"
+    assert result.exit_code == 2
+    
 def test_subseq():
     """Use cases from task description (plus some more)"""
 
