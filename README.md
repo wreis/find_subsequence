@@ -1,6 +1,6 @@
-# Merantix Engineering Assignment
+# Description
 
-Assignment for Merantix Software and Data Engineers.
+Utility to evaluate if a subsequence is interesting
 
 ## Setup
 
